@@ -1,0 +1,31 @@
+{
+    "name": "alura-js",
+    "version": "1.0.0",
+    "description": "Projeto Estudo JS",
+    "main": "index.js",
+    "engines": {
+        "node": "7.4.0"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/michelmedeiros/alura-js.git"
+    },
+    "keywords": [
+        "js"
+    ],
+    "author": "Michel Medeiros",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/michelmedeiros/alura-js/issues"
+    },
+    "homepage": "https://github.com/michelmedeiros/alura-js#readme",
+    "dependencies": {
+        "bootstrap": "^3.3.7",
+        "express": "^4.14.1",
+        "jquery": "^2.2.4"
+    }
+}
