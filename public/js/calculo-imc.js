@@ -1,5 +1,8 @@
-var titulo = document.querySelector('.titulo');
+var titulo = obterPropriedade('.titulo');
 titulo.textContent = 'Aparecida Nutricionista';
+titulo.addEventListener("click", function() {
+    console.log('Ola clique');
+});
 
 var pacientes = document.querySelectorAll('.paciente');
 
@@ -11,33 +14,51 @@ pacientes.forEach(function(paciente) {
 function calcularImcPaciente(paciente) {
     var peso = obterValor(paciente, '.info-peso');
     var altura = obterValor(paciente, '.info-altura');
+    var nome = obterValor(paciente, '.info-nome');
+    var gordura = obterValor(paciente, '.info-gordura');
     var valorAtualImc = obterPropriedadePaciente(paciente, '.info-imc');
-
-    var mensagensErro = validarPesoAltura(peso, altura);
-
+    var mensagensErro = validarPaciente(peso, altura, nome, gordura);
     if (mensagensErro.length === 0) {
-        var imc = peso / (altura * altura);
-        valorAtualImc.textContent = Math.trunc(imc);
+        var imc = calcularImc(peso, altura);
+        valorAtualImc.textContent = imc;
     } else {
-        valorAtualImc.textContent = mensagensErro.filter(
-            function(val) {
-                return val;
+
+        var erros = mensagensErro.filter(
+            function(erro) {
+                return erro;
             }
         ).join(', ');
+        valorAtualImc.textContent = erros;
         paciente.classList.add('paciente-invalido');
     }
+    return valorAtualImc.textContent;
 }
 
-function validarPesoAltura(peso, altura) {
+function calcularImc(peso, altura) {
+    var imc = peso / (altura * altura);
+    return imc.toFixed(2);
+}
+
+function validarPaciente(peso, altura, nome, gordura) {
     var mensagensErro = [];
     var pesoInvalido = peso <= 0 || peso >= 500;
     var alturaInvalida = altura <= 0 || altura >= 3.00;
     if (pesoInvalido) {
-        mensagensErro.push(' Altura inválida: ' + altura);
+        mensagensErro.push('Peso inválido: ' + altura);
     }
     if (alturaInvalida) {
-        mensagensErro.push(' Peso inválido: ' + peso);
+        mensagensErro.push('Altura inválida:  ' + peso);
     }
+
+    if (!nome) {
+        mensagensErro.push('O nome deve ser informado');
+    }
+
+    if (!gordura) {
+        mensagensErro.push('A gordura corporal deve ser informada');
+    }
+
+
     return mensagensErro;
 }
 
